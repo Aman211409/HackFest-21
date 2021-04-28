@@ -11,9 +11,11 @@ var kmToRadian = function(km){
     return km / earthRadiusInKm;
 };
 
-router.post('/patient', (req, res, next) => {
+//Get providers by essentials_id
+router.post('/:essentials_id/nearby', (req, res, next) => {
     const latitude = req.body.latitude;
     const longitude = req.body.longitude;
+    const essentialsId = req.params.essentials_id;
 
     Provider.find({
         location:{
@@ -22,7 +24,15 @@ router.post('/patient', (req, res, next) => {
             }
         }
     }).exec()
-    .then(providers => {
+    .then(result => {
+
+        var providers = [];
+        for(i=0; i<result.length; i++){
+            if(result[i].essentials.filter(item => item == essentialsId).length !== 0){
+                providers.push(result[i]);
+            }
+        }
+        
         return res.status(200).json({
             code: 200,
             message: "Fetched providers successfully.",
@@ -37,6 +47,7 @@ router.post('/patient', (req, res, next) => {
     });
 });
 
+//Create new request
 router.post('/:essentials_id', (req, res, next) => {
     
     const date = new Date();
