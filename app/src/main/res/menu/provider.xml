@@ -5,7 +5,7 @@
         android:id="@+id/predictionHomeFragment"/>
     <item
         android:title="Requests"
-        android:id="@+id/providerRequestsHomeFragment"/>
+        android:id="@+id/providerRequestsFragment"/>
     <item
         android:title="Community"
         android:id="@+id/communityHomeFragment"/>

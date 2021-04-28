@@ -11,11 +11,28 @@
         android:label="Prediction"
         tools:layout="@layout/fragment_prediction_home"/>
 
-    <fragment
-        android:id="@+id/providerRequestsHomeFragment"
-        android:name="com.hackfest21.covigenix.UI.ProviderServices.ProviderRequestsHomeFragment"
-        android:label="Requests"
-        tools:layout="@layout/fragment_provider_requests_home"/>
+    <navigation
+        android:id="@+id/providerRequestsFragment"
+        app:startDestination="@id/providerRequestsHomeFragment">
+        <fragment
+            android:id="@+id/providerRequestsHomeFragment"
+            android:name="com.hackfest21.covigenix.UI.ProviderServices.ProviderRequestsHomeFragment"
+            android:label="Requests"
+            tools:layout="@layout/fragment_provider_requests_home">
+            <action
+                android:id="@+id/home_to_list"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+                app:destination="@id/providerRequestsListFragment"/>
+        </fragment>
+        <fragment
+            android:id="@+id/providerRequestsListFragment"
+            android:name="com.hackfest21.covigenix.UI.ProviderServices.ProviderRequestListFragment"
+            android:label="Patients"
+            tools:layout="@layout/fragment_provider_requests_list" />
+    </navigation>
 
     <fragment
         android:id="@+id/communityHomeFragment"
