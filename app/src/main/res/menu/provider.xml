@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Prediction"
+        android:id="@+id/predictionHomeFragment"/>
+    <item
+        android:title="Requests"
+        android:id="@+id/providerRequestsHomeFragment"/>
+    <item
+        android:title="Community"
+        android:id="@+id/communityHomeFragment"/>
+    <item
+        android:title="Edit Essentials"
+        android:id="@+id/editEssentialsFragment"/>
+    <item
+        android:title="Profile"
+        android:id="@+id/providerProfileFragment"/>
+</menu>
