@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:elevation="5dp"
+        android:id="@+id/progress_circular_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/progress_bar_background"
+        android:padding="20dp"
+        android:visibility="invisible"
+        android:layout_gravity="center_horizontal|center_vertical">
+        <ProgressBar
+            android:indeterminateTint="@android:color/white"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.0"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="1"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.02"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="1"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardViewPersonalDetails"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/guideline3">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.1" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.95" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.15" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.85" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.05" />
+
+                    <TextView
+                        android:id="@+id/textViewPersonalDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Personal Details"
+                        android:visibility="gone"
+                        style="@style/CardInfoHead"
+                        app:layout_constraintTop_toTopOf="@id/guideline7"
+                        app:layout_constraintStart_toStartOf="@id/guideline9"/>
+
+                    <ImageView
+                        android:id="@+id/imageViewPerson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_account_circle_24"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="@id/guideline5"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPersonalDetails" />
+
+                    <TextView
+                        android:id="@+id/textViewName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Name"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewPerson"
+                        app:layout_constraintStart_toEndOf="@id/imageViewPerson"
+                        app:layout_constraintTop_toTopOf="@id/imageViewPerson"
+                        android:layout_marginLeft="10dp" />
+
+                    <ImageView
+                        android:id="@+id/imageViewPhoneNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_baseline_business_center_24"
+                        app:layout_constraintStart_toStartOf="@id/guideline5"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewPerson" />
+
+                    <TextView
+                        android:id="@+id/textViewPhoneNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PhoneNo"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewPhoneNo"
+                        app:layout_constraintStart_toStartOf="@id/textViewName"
+                        app:layout_constraintTop_toTopOf="@id/imageViewPhoneNo" />
+
+                    <ImageView
+                        android:id="@+id/imageViewArea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_calendar_today_24"
+                        app:layout_constraintStart_toStartOf="@id/guideline5"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPhoneNo" />
+                    <TextView
+                        android:id="@+id/textViewArea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Area"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewArea"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="@id/textViewPhoneNo"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPhoneNo"/>
+                    <ImageView
+                        android:id="@+id/imageViewItemName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_calendar_today_24"
+                        app:layout_constraintStart_toStartOf="@id/guideline5"
+                        app:layout_constraintTop_toBottomOf="@id/textViewArea" />
+                    <TextView
+                        android:id="@+id/textViewItemName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Item Name"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewItemName"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="@id/textViewPhoneNo"/>
+
+                    <ImageView
+                        android:id="@+id/imageViewDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_calendar_today_24"
+                        app:layout_constraintStart_toStartOf="@id/guideline5"
+                        app:layout_constraintTop_toBottomOf="@id/textViewItemName"/>
+" />
+                    <TextView
+                        android:id="@+id/textViewDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewDescription"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="@id/textViewPhoneNo"/>
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
