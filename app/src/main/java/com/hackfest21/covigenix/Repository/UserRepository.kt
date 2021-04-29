@@ -5,7 +5,10 @@ import android.content.SharedPreferences
 import com.hackfest21.covigenix.HelperClass.Companion.LOGIN_STATUS
 import com.hackfest21.covigenix.HelperClass.Companion.LOGIN_TYPE
 import com.hackfest21.covigenix.HelperClass.Companion.SHARED_PREFS
+import com.hackfest21.covigenix.HelperClass.Companion.USER_AREA
 import com.hackfest21.covigenix.HelperClass.Companion.USER_ID
+import com.hackfest21.covigenix.HelperClass.Companion.USER_LAT
+import com.hackfest21.covigenix.HelperClass.Companion.USER_LONG
 import com.hackfest21.covigenix.HelperClass.Companion.USER_NAME
 import com.hackfest21.covigenix.HelperClass.Companion.USER_PHONE
 import com.hackfest21.covigenix.MyApplication
@@ -100,6 +103,44 @@ class UserRepository(val app: MyApplication) {
         }
     }
 
+    fun getUserLat() : Double {
+        try{
+            val lat = sharedPref.getString(USER_LAT, "0.0")!!
+            return lat.toDouble()
+        } catch (e: Exception){
+            e.printStackTrace()
+            return 0.0
+        }
+    }
+
+    fun setUserLat(lat : Double){
+        try{
+            editor.putString(USER_LAT, lat.toString())
+            editor.commit()
+        } catch(e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun getUserLong() : Double {
+        try{
+            val longit = sharedPref.getString(USER_LONG, "0.0")!!
+            return longit.toDouble()
+        } catch (e: Exception){
+            e.printStackTrace()
+            return 0.0
+        }
+    }
+
+    fun setUserLong(longit : Double){
+        try{
+            editor.putString(USER_LONG, longit.toString())
+            editor.commit()
+        } catch(e: Exception){
+            e.printStackTrace()
+        }
+    }
+
     fun getUserName() : String {
         try{
             return sharedPref.getString(USER_NAME, "")!!
@@ -114,6 +155,26 @@ class UserRepository(val app: MyApplication) {
             if(name.equals(""))
                 throw NullPointerException()
             editor.putString(USER_NAME, name)
+            editor.commit()
+        } catch(e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun getUserArea() : String {
+        try{
+            return sharedPref.getString(USER_AREA, "")!!
+        } catch (e: Exception){
+            e.printStackTrace()
+            return ""
+        }
+    }
+
+    fun setUserArea(area : String){
+        try{
+            if(area.equals(""))
+                throw NullPointerException()
+            editor.putString(USER_AREA, area)
             editor.commit()
         } catch(e: Exception){
             e.printStackTrace()

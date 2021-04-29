@@ -1,6 +1,6 @@
 package com.hackfest21.covigenix.Service
 
-import com.hackfest21.covigenix.Model.*
+import com.hackfest21.covigenix.Model.Provider.*
 import retrofit2.http.*
 
 interface ProviderService {

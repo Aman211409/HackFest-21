@@ -1,9 +1,10 @@
 package com.hackfest21.covigenix.Repository
 
-import com.hackfest21.covigenix.Model.*
+import com.hackfest21.covigenix.Model.Provider.BodyProviderSignUp
+import com.hackfest21.covigenix.Model.Provider.BodyUpdateEssentials
+import com.hackfest21.covigenix.Model.Provider.BodyUpdateProvider
 import com.hackfest21.covigenix.Service.ProviderService
 import retrofit2.Retrofit
-import retrofit2.http.*
 
 class ProviderRepository(retrofit: Retrofit) {
 

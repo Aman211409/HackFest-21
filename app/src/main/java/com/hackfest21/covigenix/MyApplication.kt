@@ -2,10 +2,7 @@ package com.hackfest21.covigenix
 
 import android.app.Application
 import com.hackfest21.covigenix.HelperClass.Companion.BASE_URL
-import com.hackfest21.covigenix.Repository.CommunityRepository
-import com.hackfest21.covigenix.Repository.PatientRepository
-import com.hackfest21.covigenix.Repository.ProviderRepository
-import com.hackfest21.covigenix.Repository.UserRepository
+import com.hackfest21.covigenix.Repository.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -21,6 +18,7 @@ class MyApplication: Application() {
 
     lateinit var providerRepository: ProviderRepository
     lateinit var patientRepository: PatientRepository
+    lateinit var requestRepository: RequestRepository
     lateinit var communityRepository: CommunityRepository
     lateinit var userRepository: UserRepository
 
@@ -40,6 +38,7 @@ class MyApplication: Application() {
         providerRepository = ProviderRepository(retrofit)
         patientRepository = PatientRepository(retrofit)
         communityRepository = CommunityRepository(retrofit)
+        requestRepository = RequestRepository(retrofit)
         userRepository = UserRepository(this)
     }
 }

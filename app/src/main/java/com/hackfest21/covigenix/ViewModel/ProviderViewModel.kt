@@ -9,7 +9,7 @@ import com.hackfest21.covigenix.Event
 import com.hackfest21.covigenix.HelperClass.Companion.ID_NOT_GIVEN
 import com.hackfest21.covigenix.HelperClass.Companion.PHONE_NOT_PROVIDED
 import com.hackfest21.covigenix.HelperClass.Companion.handleError
-import com.hackfest21.covigenix.Model.*
+import com.hackfest21.covigenix.Model.Provider.*
 import com.hackfest21.covigenix.MyApplication
 import com.hackfest21.covigenix.Repository.ProviderRepository
 import com.hackfest21.covigenix.Repository.UserRepository

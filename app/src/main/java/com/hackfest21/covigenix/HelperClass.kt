@@ -13,8 +13,13 @@ class HelperClass {
         val USER_NAME = "UserName"
         val BASE_URL = "http://192.168.1.4:3000/"
         val USER_PHONE = "UserPhone"
+        val USER_AREA = "UserArea"
         val PHONE_NOT_PROVIDED = "Phone number is not provided."
         val ID_NOT_GIVEN = "User ID not provided."
+        val TYPE_PATIENT = 0;
+        val TYPE_PROVIDER = 1;
+        val USER_LAT = "UserLat"
+        val USER_LONG = "UserLong"
         fun handleError(e: Exception, errorString: MutableLiveData<Event<String>>){
             e.printStackTrace()
 
