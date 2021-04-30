@@ -15,12 +15,20 @@ router.get('/:provider_phone/exists', (req, res, next) => {
         if(result){
             return res.status(200).json({
                 code: 200,
-                message: "Provider exists."
+                message: "Provider exists.",
+                id: result._id,
+                name: result.name,
+                area: result.area,
+                location: result.location.coordinates
             });
         }else{
             return res.status(200).json({
                 code: 201,
-                message: "Provider does not exist."
+                message: "Provider does not exist.",
+                id: null,
+                name: null,
+                area: null,
+                location: null
             });
         }
         
@@ -51,7 +59,8 @@ router.post('/sign-up', (req, res, next) => {
     .then(result => {
         return res.status(200).json({
             code: 200,
-            message: "Signed up successfully"
+            message: "Signed up successfully",
+            id: result._id
         })
     }).catch(err => {
         console.log(err);
@@ -101,7 +110,7 @@ router.patch('/:provider_id', (req, res, next) => {
             $set: {
                 area: req.body.area,
                 location: {
-                    type: pointSchema,
+                    type: "Point",
                     coordinates: req.body.coordinates
                 }
             }

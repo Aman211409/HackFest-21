@@ -10,6 +10,7 @@ module.exports = router;
 /* signUp(Registering User) */
 
 router.post('/sign-up', (req, res, next) => {
+
     const patient = new Patient({
         _id: mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -25,7 +26,8 @@ router.post('/sign-up', (req, res, next) => {
     .then(result => {
         return res.status(200).json({
             code: 200,
-            message: "Signed up successfully"
+            message: "Signed up successfully",
+            id: result._id
         })
     }).catch(err => {
         console.log(err);
@@ -48,12 +50,20 @@ router.get('/:patient_phone/exists', (req, res, next) => {
         if(result){
             return res.status(200).json({
                 code: 200,
-                message: "Patient exists."
+                message: "Patient exists.",
+                id: result._id,
+                name: result.name,
+                area: result.area,
+                location: result.location.coordinates
             });
         }else{
             return res.status(200).json({
                 code: 201,
-                message: "Patient Does not Exists."
+                message: "Patient Does not Exists.",
+                id: null,
+                name: null,
+                area: null,
+                location: null
             });
         }
         
@@ -110,7 +120,7 @@ router.patch('/:patientId', (req, res, next) => {
             {
                 area: req.body.area,
                 location: {
-                    type: pointSchema,
+                    type: "Point",
                     coordinates: req.body.coordinates
                 }
             }
