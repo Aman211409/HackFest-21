@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/providerProfileFragment"
-        android:name="com.hackfest21.covigenix.UI.ProviderProfileFragment"
+        android:name="com.hackfest21.covigenix.UI.ProviderServices.ProviderProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_provider_profile" />
 </navigation>

@@ -23,7 +23,7 @@ class UserRepository(val app: MyApplication) {
         editor = sharedPref.edit()
     }
 
-    fun getLoginStatus(): Boolean{
+    /*fun getLoginStatus(): Boolean{
         try{
             val loginStatus = sharedPref.getBoolean(LOGIN_STATUS, false)
             return loginStatus
@@ -40,7 +40,7 @@ class UserRepository(val app: MyApplication) {
         } catch(e : Exception){
             e.printStackTrace()
         }
-    }
+    }*/
 
     fun getLoginType(): Int{
         try{
@@ -52,7 +52,7 @@ class UserRepository(val app: MyApplication) {
         }
     }
 
-    fun setLoginStatus(loginType: Int) {
+    fun setLoginType(loginType: Int) {
         try{
             editor.putInt(LOGIN_TYPE, loginType)
             editor.commit()

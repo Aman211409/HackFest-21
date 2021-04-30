@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.hackfest21.covigenix.Event
+import com.hackfest21.covigenix.HelperClass.Companion.DUMMY_LAT
+import com.hackfest21.covigenix.HelperClass.Companion.DUMMY_LONGI
 import com.hackfest21.covigenix.HelperClass.Companion.ID_NOT_GIVEN
 import com.hackfest21.covigenix.HelperClass.Companion.PHONE_NOT_PROVIDED
 import com.hackfest21.covigenix.HelperClass.Companion.handleError
@@ -52,10 +54,15 @@ class ProviderViewModel(val app: Application): AndroidViewModel(app) {
     }
 
     fun providerSignUp(name: String, area: String, essentials: Array<Int>){
-        val coordinates: Array<Double> = arrayOf(0.0, 0.0)
+        val coordinates: Array<Double> = arrayOf(DUMMY_LONGI, DUMMY_LAT)
         val phone = userRepository.getUserPhone()
         //TODO: GetLocation
-        val bodyProviderSignUp = BodyProviderSignUp(name, phone, area, coordinates, essentials)
+        val bodyProviderSignUp = BodyProviderSignUp(name, phone, area, coordinates, essentials.toIntArray())
+
+        userRepository.setUserLong(DUMMY_LONGI)
+        userRepository.setUserLat(DUMMY_LAT)
+        //TODO: Rest of the fields in RegisterProvider
+
         viewModelScope.launch {
             try{
                 responseProviderSignUp.postValue(Event(providerRepository.providerSignUp(bodyProviderSignUp)))
@@ -88,7 +95,7 @@ class ProviderViewModel(val app: Application): AndroidViewModel(app) {
             return
         }
 
-        val coordinates: Array<Double> = arrayOf(0.0, 0.0);
+        val coordinates: Array<Double> = arrayOf(userRepository.getUserLong(), userRepository.getUserLat());
         //TODO: GetLocation
         val bodyUpdateProvider = BodyUpdateProvider(area, coordinates)
 
@@ -101,7 +108,7 @@ class ProviderViewModel(val app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun updateEssentials(essentials: Array<Int>){
+    fun updateEssentials(essentials: IntArray){
         val bodyUpdateEssentials = BodyUpdateEssentials(essentials)
         val providerId = userRepository.getUserId()
         if(providerId.equals("")){
@@ -115,5 +122,21 @@ class ProviderViewModel(val app: Application): AndroidViewModel(app) {
                 handleError(e, errorString)
             }
         }
+    }
+
+    //Local Data
+    val providerName: MutableLiveData<String> = MutableLiveData()
+    val providerPhone: MutableLiveData<String> = MutableLiveData()
+    val providerArea: MutableLiveData<String> = MutableLiveData()
+
+    fun emitProfile(){
+        providerName.postValue(userRepository.getUserName())
+        providerPhone.postValue(userRepository.getUserPhone())
+        providerArea.postValue(userRepository.getUserArea())
+
+        //Dummy data
+        /*providerName.postValue("Akash Mahapatra")
+        providerPhone.postValue("7809601401")
+        providerArea.postValue("Jharsuguda, Odisha")*/
     }
 }

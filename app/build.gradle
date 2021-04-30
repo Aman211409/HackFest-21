@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 }
 dependencies {
-    implementation 'com.github.mukeshsolanki:android-otpview-pinview:<latest-version>'
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2'
 }
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

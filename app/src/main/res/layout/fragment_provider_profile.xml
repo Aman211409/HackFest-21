@@ -1,13 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/teal_200"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/nameLayout"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:text="Provider Profile" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Name:"/>
+        <TextView
+            android:layout_weight="3"
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Name of Person"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/phoneLayout"
+        app:layout_constraintTop_toBottomOf="@id/nameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Phone:"/>
+        <TextView
+            android:layout_weight="3"
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Phone Number of Person"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/areaLayout"
+        app:layout_constraintTop_toBottomOf="@id/phoneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Area:"/>
+        <EditText
+            android:layout_weight="3"
+            android:id="@+id/area"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Area of Person"/>
+    </LinearLayout>
 
-</LinearLayout>
+    <Button
+        app:layout_constraintBottom_toTopOf="@id/logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="1"
+        android:text="Update"
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="1"
+        android:text="logout"
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.hackfest21.covigenix.Event
+import com.hackfest21.covigenix.HelperClass.Companion.DUMMY_LAT
+import com.hackfest21.covigenix.HelperClass.Companion.DUMMY_LONGI
 import com.hackfest21.covigenix.HelperClass.Companion.ID_NOT_GIVEN
 import com.hackfest21.covigenix.HelperClass.Companion.PHONE_NOT_PROVIDED
 import com.hackfest21.covigenix.HelperClass.Companion.handleError
@@ -51,10 +53,15 @@ class PatientViewModel(val app: Application): AndroidViewModel(app) {
     }
 
     fun patientSignUp(name: String, area: String){
-        val coordinates: Array<Double> = arrayOf(0.0, 0.0)
+        val coordinates: Array<Double> = arrayOf(DUMMY_LONGI, DUMMY_LAT)
         val phone = userRepository.getUserPhone()
         //TODO: GetLocation
         val bodyPatientSignUp = BodyPatientSignUp(name, phone, area, coordinates)
+
+        userRepository.setUserLong(DUMMY_LONGI)
+        userRepository.setUserLat(DUMMY_LAT)
+        //TODO: Rest fields in RegisterPatient
+
         viewModelScope.launch {
             try{
                 responsePatientSignUp.postValue(Event(patientRepository.patientSignUp(bodyPatientSignUp)))
@@ -87,7 +94,7 @@ class PatientViewModel(val app: Application): AndroidViewModel(app) {
             return
         }
 
-        val coordinates: Array<Double> = arrayOf(0.0, 0.0);
+        val coordinates: Array<Double> = arrayOf(userRepository.getUserLong(), userRepository.getUserLat());
         //TODO: GetLocation
         val bodyUpdatePatient = BodyUpdatePatient(area, coordinates)
 
@@ -100,4 +107,19 @@ class PatientViewModel(val app: Application): AndroidViewModel(app) {
         }
     }
 
+    //Local Data
+    val patientName: MutableLiveData<String> = MutableLiveData()
+    val patientPhone: MutableLiveData<String> = MutableLiveData()
+    val patientArea: MutableLiveData<String> = MutableLiveData()
+
+    fun emitProfile(){
+        patientName.postValue(userRepository.getUserName())
+        patientPhone.postValue(userRepository.getUserPhone())
+        patientArea.postValue(userRepository.getUserArea())
+
+        //Dummy data
+        /*patientName.postValue("Akash Mahapatra")
+        patientPhone.postValue("7809601401")
+        patientArea.postValue("Jharsuguda, Odisha")*/
+    }
 }

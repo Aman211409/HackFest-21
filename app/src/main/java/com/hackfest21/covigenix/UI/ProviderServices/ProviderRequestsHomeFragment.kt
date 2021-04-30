@@ -5,11 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.hackfest21.covigenix.Adapter.ProviderRequestsHomeAdapter
+import com.hackfest21.covigenix.HelperClass.Companion.createEssentialsList
 import com.hackfest21.covigenix.R
 import kotlinx.android.synthetic.main.fragment_provider_requests_home.view.*
 
-class ProviderRequestsHomeFragment : Fragment() {
+class ProviderRequestsHomeFragment : Fragment() , ProviderRequestsHomeAdapter.HomeListener{
+
+    var list: ArrayList<ProviderRequestsHomeAdapter.Item> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -20,6 +27,15 @@ class ProviderRequestsHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.text.setOnClickListener { view.findNavController().navigate(R.id.home_to_list)}
+        //view.text.setOnClickListener { view.findNavController().navigate(R.id.home_to_list)}
+
+        list = createEssentialsList()
+        val adapter = ProviderRequestsHomeAdapter(list, this)
+        view.recyclerView.adapter = adapter
+        view.recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
+    }
+
+    override fun onClick(itemPos: Int) {
+        Toast.makeText(context, list[itemPos].name, Toast.LENGTH_SHORT).show()
     }
 }

@@ -6,8 +6,8 @@ import retrofit2.http.*
 interface PatientService {
 
     //Patient Exists
-    @GET("patient/{patientId}/exists")
-    suspend fun patientExists(@Path("phonrNo") phoneNo: String): ResponsePatientExists
+    @GET("patient/{phoneNo}/exists")
+    suspend fun patientExists(@Path("phoneNo") phoneNo: String): ResponsePatientExists
 
     //Patient Sign-Up
     @POST("patient/sign-up")
