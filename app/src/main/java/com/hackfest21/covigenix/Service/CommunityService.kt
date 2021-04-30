@@ -7,12 +7,12 @@ interface CommunityService {
 
     // Get all  Community Posts Nearby
     @POST("communityPost/{communityPostType}/nearby")
-    suspend fun getCommunityPost(@Path("communityPostType") communityPostType: String , @Body getcommunityPost : BodyGetCommunityPost): ResponseGetCommunityPost
+    suspend fun getCommunityPost(@Path("communityPostType") communityPostType: Int , @Body getcommunityPost : BodyGetCommunityPost): ResponseGetCommunityPost
 
 
     // Create a new Community Post
     @POST("communityPost/{communityPostType}")
-    suspend fun createCommunityPost(@Path("communityPostType") communityPostType: String , @Body createcommunityPost : BodyCreateCommunityPost): ResponseCreateCommunityPost
+    suspend fun createCommunityPost(@Path("communityPostType") communityPostType: Int , @Body createcommunityPost : BodyCreateCommunityPost): ResponseCreateCommunityPost
 
 
     // Delete Community Post

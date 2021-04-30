@@ -47,6 +47,7 @@ dependencies {
 }
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-auth:19.4.0'
     def nav_version = "2.3.5"
 
     // Kotlin

@@ -27,14 +27,14 @@ class CommunityPostViewModel(val app: Application): AndroidViewModel(app){
 
     private val errorString: MutableLiveData<Event<String>> = MutableLiveData()
 
-    fun responseGetCommunityPost(): LiveData<Event<ResponsePatientExists>> = responseGetCommunityPost()
-    fun responseCreateCommunityPost(): LiveData<Event<ResponsePatientSignUp>> = responseCreateCommunityPost()
-    fun responseDeleteCommunityPost(): LiveData<Event<ResponseGetPatient>> = responseDeleteCommunityPost()
+    fun responseGetCommunityPost(): LiveData<Event<ResponseGetCommunityPost>> = responseGetCommunityPost()
+    fun responseCreateCommunityPost(): LiveData<Event<ResponseCreateCommunityPost>> = responseCreateCommunityPost()
+    fun responseDeleteCommunityPost(): LiveData<Event<ResponseDeleteCommunityPost>> = responseDeleteCommunityPost()
 
 
     fun errorString(): LiveData<Event<String>> = errorString
 
-    fun getCommunityPost(communityPostType : String ){
+    fun getCommunityPost(communityPostType : Int ){
         val lat = userRepository.getUserLat()
         val long = userRepository.getUserLong()
         val coordinates : Array<Double> = arrayOf(0.0,0.0)
@@ -52,13 +52,13 @@ class CommunityPostViewModel(val app: Application): AndroidViewModel(app){
         }
     }
 
-    fun createCommunityPost(name:String , phone:String , area : String , details:String, communityPostType : String ){
+    fun createCommunityPost(name:String , phone:String , area : String , itemName : String , details:String, communityPostType : Int ){
         val lat = userRepository.getUserLat()
         val long = userRepository.getUserLong()
         val coordinates : Array<Double> = arrayOf(0.0,0.0)
         coordinates[0] = lat
         coordinates[1] = long
-        val bodyCreateCommunityPost = BodyCreateCommunityPost(name, phone, area,coordinates,details)
+        val bodyCreateCommunityPost = BodyCreateCommunityPost(name, phone, itemName ,area ,  coordinates,details)
         viewModelScope.launch {
             try{
                 responseCreateCommunityPost.postValue(Event(communityPostRepository.createCommunityPost(communityPostType,bodyCreateCommunityPost)))

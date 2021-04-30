@@ -14,11 +14,11 @@ class CommunityRepository(retrofit: Retrofit) {
     var communityService: CommunityService = retrofit.create(CommunityService::class.java)
     // Get Community Posts Nearby
 
-    suspend fun communityPostsNearby(communityPostType : String , bodyGetCommunityPost: BodyGetCommunityPost) = communityService.getCommunityPost(communityPostType,bodyGetCommunityPost)
+    suspend fun communityPostsNearby(communityPostType : Int , bodyGetCommunityPost: BodyGetCommunityPost) = communityService.getCommunityPost(communityPostType,bodyGetCommunityPost)
 
     // Create a new Community Post Nearby
 
-    suspend fun createCommunityPost(communityPostType : String , bodyCreateCommunityPost: BodyCreateCommunityPost) = communityService.createCommunityPost(communityPostType,bodyCreateCommunityPost)
+    suspend fun createCommunityPost(communityPostType : Int , bodyCreateCommunityPost: BodyCreateCommunityPost) = communityService.createCommunityPost(communityPostType,bodyCreateCommunityPost)
 
     // Delete Community Post
 

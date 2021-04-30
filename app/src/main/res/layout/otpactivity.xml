@@ -142,82 +142,17 @@
 
                 <EditText
                     android:id="@+id/otp_edit_text1"
-                    android:layout_width="@dimen/et_otp_width"
+                    android:layout_width="300dp"
                     android:layout_height="@dimen/et_otp_height"
                     android:layout_marginEnd="@dimen/margin_right_otp"
                     android:background="@drawable/otp_edittext"
                     android:inputType="number"
-                    android:maxLength="1"
+                    android:maxLength="6"
                     android:textAlignment="center"
                     android:textColor="@color/trueBlack"
                     android:layout_marginRight="@dimen/margin_right_otp"
                     android:gravity="center_horizontal" />
 
-                <EditText
-                    android:id="@+id/otp_edit_text2"
-                    android:layout_width="@dimen/et_otp_width"
-                    android:layout_height="@dimen/et_otp_height"
-                    android:layout_marginEnd="@dimen/margin_right_otp"
-                    android:background="@drawable/otp_edittext"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/trueBlack"
-                    android:layout_marginRight="@dimen/margin_right_otp"
-                    android:gravity="center_horizontal" />
-
-                <EditText
-                    android:id="@+id/otp_edit_text3"
-                    android:layout_width="@dimen/et_otp_width"
-                    android:layout_height="@dimen/et_otp_height"
-                    android:layout_marginEnd="@dimen/margin_right_otp"
-                    android:background="@drawable/otp_edittext"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/trueBlack"
-                    android:layout_marginRight="@dimen/margin_right_otp"
-                    android:gravity="center_horizontal" />
-
-                <EditText
-                    android:id="@+id/otp_edit_text4"
-                    android:layout_width="@dimen/et_otp_width"
-                    android:layout_height="@dimen/et_otp_height"
-                    android:layout_marginEnd="@dimen/margin_right_otp"
-                    android:background="@drawable/otp_edittext"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/trueBlack"
-                    android:layout_marginRight="@dimen/margin_right_otp"
-                    android:gravity="center_horizontal" />
-
-                <EditText
-                    android:id="@+id/otp_edit_text5"
-                    android:layout_width="@dimen/et_otp_width"
-                    android:layout_height="@dimen/et_otp_height"
-                    android:layout_marginEnd="@dimen/margin_right_otp"
-                    android:background="@drawable/otp_edittext"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/trueBlack"
-                    android:layout_marginRight="@dimen/margin_right_otp"
-                    android:gravity="center_horizontal" />
-
-                <EditText
-                    android:id="@+id/otp_edit_text6"
-                    android:layout_width="@dimen/et_otp_width"
-                    android:layout_height="@dimen/et_otp_height"
-                    android:background="@drawable/otp_edittext"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/trueBlack"
-                    android:gravity="center_horizontal" />
             </LinearLayout>
 
             <ImageView
