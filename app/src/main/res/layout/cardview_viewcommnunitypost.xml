@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/bg"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
                 android:id="@+id/cardViewPersonalDetails"
+                app:cardBackgroundColor="@drawable/bg_stroke"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintEnd_toEndOf="@id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/guideline3">
@@ -202,6 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Description"
+
                         app:layout_constraintBottom_toBottomOf="@id/imageViewDescription"
                         android:layout_marginTop="10dp"
                         app:layout_constraintStart_toStartOf="@id/textViewPhoneNo"/>

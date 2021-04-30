@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "917396469000",
+    "project_id": "covigenix",
+    "storage_bucket": "covigenix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917396469000:android:d1326b865bced3098e28bd",
+        "android_client_info": {
+          "package_name": "com.hackfest21.covigenix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917396469000-j66amuhi6kvadnhf92hjitgrufjk5p24.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hackfest21.covigenix",
+            "certificate_hash": "ae1822492098790409510a2fac06685de111d132"
+          }
+        },
+        {
+          "client_id": "917396469000-hb5iku10ngd7foec6p3h34l7lhkhk3qt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxmquZ7Cs3PwazomQtd8xJBFePxPL6ttw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917396469000-hb5iku10ngd7foec6p3h34l7lhkhk3qt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
