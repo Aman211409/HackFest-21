@@ -32,7 +32,7 @@ class ProviderActivity : AppCompatActivity() {
 
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.predictionHomeFragment, R.id.providerRequestsHomeFragment, R.id.communityHomeFragment, R.id.editEssentialsFragment, R.id.providerProfileFragment),
+            setOf(R.id.predictionHomeFragment, R.id.providerRequestsListFragment, R.id.communityHomeFragment, R.id.editEssentialsFragment, R.id.providerProfileFragment),
             drawer_layout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -16,10 +16,4 @@ class PatientRequestMapFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_patient_request_map, container, false)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        view.text.setOnClickListener { view.findNavController().navigate(R.id.map_to_apply)}
-    }
 }

@@ -53,11 +53,11 @@ class ProviderViewModel(val app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun providerSignUp(name: String, area: String, essentials: Array<Int>){
+    fun providerSignUp(name: String, area: String, essentials: IntArray){
         val coordinates: Array<Double> = arrayOf(DUMMY_LONGI, DUMMY_LAT)
         val phone = userRepository.getUserPhone()
         //TODO: GetLocation
-        val bodyProviderSignUp = BodyProviderSignUp(name, phone, area, coordinates, essentials.toIntArray())
+        val bodyProviderSignUp = BodyProviderSignUp(name, phone, area, coordinates, essentials)
 
         userRepository.setUserLong(DUMMY_LONGI)
         userRepository.setUserLat(DUMMY_LAT)

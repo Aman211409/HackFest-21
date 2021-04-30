@@ -13,8 +13,8 @@
 
     <navigation
         android:id="@+id/providerRequestsFragment"
-        app:startDestination="@id/providerRequestsHomeFragment">
-        <fragment
+        app:startDestination="@id/providerRequestsListFragment">
+        <!--<fragment
             android:id="@+id/providerRequestsHomeFragment"
             android:name="com.hackfest21.covigenix.UI.ProviderServices.ProviderRequestsHomeFragment"
             android:label="Requests"
@@ -26,7 +26,7 @@
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"
                 app:destination="@id/providerRequestsListFragment"/>
-        </fragment>
+        </fragment>-->
         <fragment
             android:id="@+id/providerRequestsListFragment"
             android:name="com.hackfest21.covigenix.UI.ProviderServices.ProviderRequestListFragment"

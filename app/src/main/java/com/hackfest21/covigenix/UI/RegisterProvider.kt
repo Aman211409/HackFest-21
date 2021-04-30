@@ -1,5 +1,6 @@
 package com.hackfest21.covigenix.UI
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,8 @@ class RegisterProvider : AppCompatActivity(), EssentialsAdapter.EssentialListene
     private val TAG = "RegisterProvider"
 
     lateinit var providerViewModel: ProviderViewModel
+    lateinit var sName: String
+    lateinit var sArea: String
     var essentialsList: ArrayList<EssentialsAdapter.Essential> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +33,15 @@ class RegisterProvider : AppCompatActivity(), EssentialsAdapter.EssentialListene
             it.getContentIfNotHandled()?.let {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
 
-                //TODO: Save the current profile
+                if (it.code == 200) {
+                    //TODO: Save the current profile
+                    Log.d(TAG, "onCreate: Success")
+                    providerViewModel.userRepository.setUserId(it.id)
+                    providerViewModel.userRepository.setUserName(sName)
+                    providerViewModel.userRepository.setUserArea(sArea)
+
+                    startActivity(Intent(this, ProviderActivity::class.java))
+                }
             }
         })
 
@@ -51,8 +62,8 @@ class RegisterProvider : AppCompatActivity(), EssentialsAdapter.EssentialListene
     }
 
     private fun registerProvider(){
-        val sName = name.text.toString().trim()
-        val sArea =  area.text.toString()
+        sName = name.text.toString().trim()
+        sArea =  area.text.toString()
 
         if(sName.isEmpty()){
             name.setError("Enter valid name.")
@@ -85,7 +96,8 @@ class RegisterProvider : AppCompatActivity(), EssentialsAdapter.EssentialListene
         }
 
         //TODO: API CALL
-        //providerViewModel.providerSignUp(sName, sArea, essentialIdList.toArray() as Array<Int>)
+        //Log.d(TAG, "registerProvider: hi")
+        providerViewModel.providerSignUp(sName, sArea, essentialIdList.toIntArray())
     }
 
     override fun toggle(itemPos: Int) {

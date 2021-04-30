@@ -37,19 +37,23 @@ class RequestViewModel(val app: Application): AndroidViewModel(app) {
     fun responseGetMyRequests(): LiveData<Event<ResponseGetMyRequests>> = responseGetMyRequests
     fun errorString(): LiveData<Event<String>> = errorString
 
+
+    val safeToVisitProviders: MutableLiveData<Boolean> = MutableLiveData()
     fun getProvidersByEssentialsId(essentialsId: Int){
         val bodyGetProvidersByEssentialsId = BodyGetProvidersByEssentialsId(userRepository.getUserLong(), userRepository.getUserLat())
 
         viewModelScope.launch {
             try{
                 responseGetProvidersByEssentialsId.postValue(Event(requestRepository.getProvidersByEssentialsId(essentialsId.toString(), bodyGetProvidersByEssentialsId)))
+                safeToVisitProviders.postValue(true)
             }catch(e: Exception){
                 HelperClass.handleError(e, errorString)
             }
         }
     }
 
-    fun createRequest(essentialsId: Int, providers: ArrayList<ProviderStatusModel>){
+    fun createRequest(providers: ArrayList<ProviderStatusModel>){
+        val essentialsId = essentialIdLiveData.value
         val bodyCreateRequest = BodyCreateRequest(userRepository.getUserId(), userRepository.getUserName(), userRepository.getUserPhone(), userRepository.getUserArea(), arrayOf(userRepository.getUserLong(), userRepository.getUserLat()), providers)
 
         viewModelScope.launch {
@@ -107,5 +111,10 @@ class RequestViewModel(val app: Application): AndroidViewModel(app) {
                 HelperClass.handleError(e, errorString)
             }
         }
+    }
+
+    val essentialIdLiveData: MutableLiveData<Int> = MutableLiveData()
+    fun emitEssentialId(id: Int){
+        essentialIdLiveData.postValue(id)
     }
 }

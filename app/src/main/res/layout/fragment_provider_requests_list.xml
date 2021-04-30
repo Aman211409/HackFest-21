@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPatients"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Provider Requests List" />
+        android:layout_weight="1"
+        tools:listitem="@layout/cardview_requestedpatients"/>
 
 </FrameLayout>
