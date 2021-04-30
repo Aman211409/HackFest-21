@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const mongoose = require('mongoose');
 const pointSchema = require('../models/point');
-const Patient = require('../models/patient');
+const Patient = require('../models/patientSchema');
 
 
 module.exports = router;
@@ -10,12 +10,13 @@ module.exports = router;
 /* signUp(Registering User) */
 
 router.post('/sign-up', (req, res, next) => {
-    const patient = new patient({
+    const patient = new Patient({
+        _id: mongoose.Types.ObjectId(),
         name: req.body.name,
         phone: req.body.phone,
         area: req.body.area,
         location: {
-            type: pointSchema,
+            type: "Point",
             coordinates: req.body.coordinates
         },
     });
@@ -38,13 +39,13 @@ router.post('/sign-up', (req, res, next) => {
 
 /* CheckSignUp(At time of Login) */
 
-router.get('/:patient_id/exists', (req, res, next) => {
-    const patientId = req.params.patient_id;
+router.get('/:patient_phone/exists', (req, res, next) => {
+    const patientPhone = req.params.patient_phone;
 
-    Patient.findOne({_id: patientId}).exec()
+    Patient.findOne({phone: patientPhone}).exec()
     .then(result =>{
 
-        if(result.length>0){
+        if(result){
             return res.status(200).json({
                 code: 200,
                 message: "Patient exists."
@@ -98,7 +99,7 @@ router.get('/:patientId', (req, res, next) => {
 
 /* UpdateProfile */
 
-router.patch('/:patientId', checkAuth, (req, res, next) => {
+router.patch('/:patientId', (req, res, next) => {
     const patientId = req.params.patient_Id;
 
     Patient.updateOne(

@@ -6,13 +6,13 @@ const Provider = require('../models/provider');
 const pointSchema = require('../models/point');
 
 //Provider check-sign-up
-router.get('/:provider_id/exists', (req, res, next) => {
-    const providerId = req.params.provider_id;
+router.get('/:provider_phone/exists', (req, res, next) => {
+    const providerPhone = req.params.provider_phone;
 
-    Provider.findOne({_id: providerId}).exec()
+    Provider.findOne({phone: providerPhone}).exec()
     .then(result =>{
-
-        if(result.length>0){
+        
+        if(result){
             return res.status(200).json({
                 code: 200,
                 message: "Provider exists."
@@ -36,11 +36,12 @@ router.get('/:provider_id/exists', (req, res, next) => {
 //Provider Sign-Up
 router.post('/sign-up', (req, res, next) => {
     const provider = new Provider({
+        _id: mongoose.Types.ObjectId(),
         name: req.body.name,
         phone: req.body.phone,
         area: req.body.area,
         location: {
-            type: pointSchema,
+            type: "Point",
             coordinates: req.body.coordinates
         },
         essentials: req.body.essentials
