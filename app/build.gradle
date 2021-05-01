@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.hackfest21.covigenix"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -31,6 +31,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        mlModelBinding true
     }
 }
 
@@ -52,6 +55,12 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:27.1.0')
 
 
+    // Declare the dependency for the Firebase ML model downloader library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-ml-modeldownloader'
+
+    // Also declare the dependency for the TensorFlow Lite library and specify its version
+    implementation 'org.tensorflow:tensorflow-lite:2.3.0'
     implementation 'com.google.firebase:firebase-ml-modeldownloader-ktx'
 
     implementation 'org.tensorflow:tensorflow-lite:2.3.0'
@@ -64,7 +73,9 @@ dependencies {
 
     // Also declare the dependency for the TensorFlow Lite library and specify its version
     implementation 'org.tensorflow:tensorflow-lite:2.3.0'
-    implementation 'com.google.firebase:firebase-ml-vision:24.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.2.0'
     def nav_version = "2.3.5"
 
     // Kotlin
