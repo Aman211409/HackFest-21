@@ -70,7 +70,7 @@ class PatientProfileFragment : Fragment() {
         }
 
         Log.d(TAG, "updateProfile: "+newArea)
-        //providerViewModel.updateProvider(newArea)
+        patientViewModel.updatePatient(newArea)
     }
 
     private fun logout(){

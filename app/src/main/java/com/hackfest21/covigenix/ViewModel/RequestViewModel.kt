@@ -89,8 +89,8 @@ class RequestViewModel(val app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun shareAddress(requestId: String, providerId: String, address: String){
-        val bodyShareAddress = BodyShareAddress(address)
+    fun shareAddress(requestId: String, providerId: String, address: String, providers: List<ProviderStatusModel>){
+        val bodyShareAddress = BodyShareAddress(address, providers)
 
         viewModelScope.launch {
             try{
@@ -117,4 +117,6 @@ class RequestViewModel(val app: Application): AndroidViewModel(app) {
     fun emitEssentialId(id: Int){
         essentialIdLiveData.postValue(id)
     }
+
+    val hospitalList: MutableLiveData<MyRequestsModel> = MutableLiveData()
 }

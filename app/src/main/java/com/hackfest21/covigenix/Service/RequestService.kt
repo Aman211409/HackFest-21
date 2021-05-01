@@ -17,7 +17,7 @@ interface RequestService {
     @GET("request/approval/{requestId}/{providerId}")
     suspend fun getApproval(@Path("requestId") requestId: String, @Path("providerId") providerId: String): ResponseGetApproval
 
-    @GET("request/share-address/{requestId}/{providerId}")
+    @POST("request/share-address/{requestId}/{providerId}")
     suspend fun shareAddress(@Path("requestId") requestId: String, @Path("providerId") providerId: String, @Body bodyShareAddress: BodyShareAddress): ResponseShareAddress
 
     @PATCH("request/{requestId}")
