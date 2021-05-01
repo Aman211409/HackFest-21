@@ -37,7 +37,8 @@ class MyRequestsListAdapter(val list: List<ProviderStatusModel>, val listListene
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.name.text = list[position].name
+        holder.phone.text = list[position].phone
     }
 
     override fun getItemCount(): Int {

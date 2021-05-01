@@ -42,14 +42,14 @@ class HelperClass {
 
         fun createEssentialsList(): ArrayList<ProviderRequestsHomeAdapter.Item>{
             val list = ArrayList<ProviderRequestsHomeAdapter.Item>()
-            list.add(ProviderRequestsHomeAdapter.Item("Remdevisir", R.mipmap.app_dev, 0))
+            list.add(ProviderRequestsHomeAdapter.Item("Remdesivir", R.mipmap.app_dev, 0))
             list.add(ProviderRequestsHomeAdapter.Item("Oxygen", R.mipmap.web, 1))
             return list
         }
 
         fun createMap() : HashMap<Int, String>{
             val map = HashMap<Int, String>()
-            map.put(0, "Remdevisir")
+            map.put(0, "Remdesivir")
             map.put(1, "Oxygen")
             return map
         }

@@ -15,7 +15,7 @@ import com.hackfest21.covigenix.R
 import com.hackfest21.covigenix.ViewModel.RequestViewModel
 import kotlinx.android.synthetic.main.fragment_my_requests_list.view.*
 
-class MyRequestsListFragment : Fragment(), MyRequestsListAdapter.ListListener {
+class MyRequestsListFragment : Fragment(), MyRequestsListAdapter.ListListener, GetAddressDialogFragment.GetAddressListener {
 
     lateinit var requestViewModel: RequestViewModel
     lateinit var list: List<ProviderStatusModel>
@@ -41,6 +41,12 @@ class MyRequestsListFragment : Fragment(), MyRequestsListAdapter.ListListener {
             }
         })
 
+        requestViewModel.responseShareAddress().observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+
         requestViewModel.errorString().observe(viewLifecycleOwner, {
             it?.getContentIfNotHandled()?.let{
                 Toast.makeText(context, it, Toast.LENGTH_LONG).show()
@@ -49,8 +55,12 @@ class MyRequestsListFragment : Fragment(), MyRequestsListAdapter.ListListener {
     }
 
     override fun onShare(pos: Int) {
-        TODO("ID in response of getmyreq")
+        val dialog = GetAddressDialogFragment(this, pos)
+        dialog.show(childFragmentManager, "DH")
+    }
 
-        //requestViewModel.shareAddress(requestViewModel.hospitalList.value.)
+    override fun onSubmit(address: String, pos: Int) {
+        list[pos].approved = true
+        requestViewModel.shareAddress(requestViewModel.hospitalList.value!!.id, list[pos].provider_id, address, list)
     }
 }
