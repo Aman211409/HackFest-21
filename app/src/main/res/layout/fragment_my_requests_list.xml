@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/text"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHospitals"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="My Requests List" />
-
+        android:layout_weight="1"
+        tools:listitem="@layout/cardview_requestedhospitals"/>
 </FrameLayout>

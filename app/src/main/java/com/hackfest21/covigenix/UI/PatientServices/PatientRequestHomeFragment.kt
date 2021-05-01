@@ -40,6 +40,12 @@ class PatientRequestHomeFragment : Fragment(), ProviderRequestsHomeAdapter.HomeL
             }
         })
 
+        requestViewModel.errorString().observe(viewLifecycleOwner, {
+            it?.getContentIfNotHandled()?.let{
+                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            }
+        })
+
         list = HelperClass.createEssentialsList()
         val adapter = ProviderRequestsHomeAdapter(list, this)
         view.recyclerView.adapter = adapter

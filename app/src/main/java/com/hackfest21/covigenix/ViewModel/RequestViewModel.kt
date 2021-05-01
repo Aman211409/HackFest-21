@@ -117,4 +117,6 @@ class RequestViewModel(val app: Application): AndroidViewModel(app) {
     fun emitEssentialId(id: Int){
         essentialIdLiveData.postValue(id)
     }
+
+    val hospitalList: MutableLiveData<MyRequestsModel> = MutableLiveData()
 }
