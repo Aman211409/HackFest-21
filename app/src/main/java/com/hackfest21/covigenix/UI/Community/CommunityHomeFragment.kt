@@ -32,5 +32,7 @@ class CommunityHomeFragment : Fragment() {
             tab.text = if(position%2==0) "Requests" else "Availability"
         }.attach()
         super.onViewCreated(view, savedInstanceState)
+
+
     }
 }
