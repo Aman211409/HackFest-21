@@ -37,6 +37,7 @@ class HelperClass {
             val list = ArrayList<EssentialsAdapter.Essential>()
             list.add(EssentialsAdapter.Essential("Remdesivir", 0, false))
             list.add(EssentialsAdapter.Essential("Oxygen", 1, false))
+            list.add(EssentialsAdapter.Essential("Plasma",2,false))
             return list
         }
 
@@ -44,6 +45,8 @@ class HelperClass {
             val list = ArrayList<ProviderRequestsHomeAdapter.Item>()
             list.add(ProviderRequestsHomeAdapter.Item("Remdesivir", R.mipmap.app_dev, 0))
             list.add(ProviderRequestsHomeAdapter.Item("Oxygen", R.mipmap.web, 1))
+            list.add(ProviderRequestsHomeAdapter.Item("Plasma", R.mipmap.web, 2))
+
             return list
         }
 
@@ -51,6 +54,7 @@ class HelperClass {
             val map = HashMap<Int, String>()
             map.put(0, "Remdesivir")
             map.put(1, "Oxygen")
+            map.put(2,"Plasma")
             return map
         }
     }

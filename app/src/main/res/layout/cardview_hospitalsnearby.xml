@@ -52,7 +52,7 @@
             android:id="@+id/textViewHospitalName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"
+            android:text="Manipal Hospital"
             style="@style/CardHead"
             app:layout_constraintTop_toTopOf="@id/guideline3"
             app:layout_constraintStart_toStartOf="@id/guideline1"/>
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="loading"
+            android:text="25-A,Block AB ,Delhi"
             app:layout_constraintBottom_toBottomOf="@id/imageViewAddress"
             app:layout_constraintStart_toEndOf="@id/imageViewAddress"
             app:layout_constraintTop_toTopOf="@id/imageViewAddress"
@@ -90,7 +90,7 @@
             android:id="@+id/textViewPhoneNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"
+            android:text="6263678726"
             app:layout_constraintBottom_toBottomOf="@id/imageViewPhoneNo"
             app:layout_constraintStart_toStartOf="@id/textViewArea"
             app:layout_constraintTop_toTopOf="@id/imageViewPhoneNo" />

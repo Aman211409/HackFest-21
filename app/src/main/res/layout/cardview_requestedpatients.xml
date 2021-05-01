@@ -52,7 +52,7 @@
             android:id="@+id/textViewEssentialName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"
+            android:text="Remdevisir"
             style="@style/CardHead"
             app:layout_constraintTop_toTopOf="@id/guideline3"
             app:layout_constraintStart_toStartOf="@id/guideline1"/>
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="loading"
+            android:text="Kunal agarwal"
             app:layout_constraintBottom_toBottomOf="@id/imageViewArea"
             app:layout_constraintStart_toEndOf="@id/imageViewArea"
             app:layout_constraintTop_toTopOf="@id/imageViewArea"
@@ -90,7 +90,7 @@
             android:id="@+id/textViewPhoneNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"
+            android:text="6263678726"
             app:layout_constraintBottom_toBottomOf="@id/imageViewPhoneNo"
             app:layout_constraintStart_toStartOf="@id/textViewName"
             app:layout_constraintTop_toTopOf="@id/imageViewPhoneNo" />
@@ -109,7 +109,7 @@
             android:id="@+id/textViewAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"
+            android:text="Requet to Get the Address"
             app:layout_constraintStart_toStartOf="@id/textViewName"
             app:layout_constraintBottom_toBottomOf="@id/imageViewAddress"/>
 

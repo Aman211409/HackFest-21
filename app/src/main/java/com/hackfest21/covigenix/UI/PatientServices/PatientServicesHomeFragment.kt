@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hackfest21.covigenix.R
 import com.hackfest21.covigenix.UI.PatientServices.PatientServicesHomeAdapter.Companion.PLASMA
 import com.hackfest21.covigenix.UI.PatientServices.PatientServicesHomeAdapter.Companion.REMDEVISIR
+import com.hackfest21.covigenix.UI.PatientServices.PatientServicesHomeAdapter.Companion.OXYGEN
+
 
 //import java.util.*
 
@@ -28,8 +30,8 @@ class PatientServicesHomeFragment : Fragment(), PatientServicesHomeAdapter.HomeL
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         list = ArrayList()
         list.add(PatientServicesHomeAdapter.HomeItem("Remdevisir", R.mipmap.app_dev, REMDEVISIR))
-
         list.add(PatientServicesHomeAdapter.HomeItem("Plasma", R.mipmap.web, PLASMA))
+        list.add(PatientServicesHomeAdapter.HomeItem("Oxygen",R.mipmap.web,OXYGEN))
         recyclerView.adapter = context?.let { PatientServicesHomeAdapter(list, it, this) }
         recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
         return view

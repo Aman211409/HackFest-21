@@ -14,11 +14,16 @@
         <TextView
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:textSize="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
             android:layout_height="match_parent"
             android:text="Name:"/>
         <TextView
             android:layout_weight="3"
             android:id="@+id/name"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Name of Person"/>
@@ -64,9 +69,11 @@
         app:layout_constraintBottom_toTopOf="@id/logout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"
         app:layout_constraintVertical_bias="1"
         android:text="Update"
         android:id="@+id/update"
+        android:background="@drawable/circularbluebordersolid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <Button
@@ -74,6 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="1"
+        android:background="@drawable/circularbluebordersolid"
         android:text="logout"
         android:id="@+id/logout"
         android:layout_width="wrap_content"

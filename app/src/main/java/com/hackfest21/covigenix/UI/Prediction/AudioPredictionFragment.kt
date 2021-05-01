@@ -35,7 +35,7 @@ class AudioPredictionFragment() : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_audio_prediction, container, false)
 
-        var tflite :MappedByteBuffer = FileUtil.loadMappedFile(context,getModelPath())
+       // var tflite :MappedByteBuffer = FileUtil.loadMappedFile(context,getModelPath())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

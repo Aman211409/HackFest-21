@@ -52,6 +52,7 @@ class PatientServicesHomeAdapter(private val list: ArrayList<HomeItem>, private 
     companion object{
         const val REMDEVISIR = "remdevisir"
         const val PLASMA= "plasma"
+        const val OXYGEN = "oxygen"
 
     }
 }

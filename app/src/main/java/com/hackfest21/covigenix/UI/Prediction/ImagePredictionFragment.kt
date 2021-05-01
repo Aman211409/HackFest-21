@@ -22,9 +22,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContentResolverCompat.query
 import androidx.fragment.app.Fragment
-import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions
-import com.google.firebase.ml.common.modeldownload.FirebaseModelManager
-import com.google.firebase.ml.common.modeldownload.FirebaseRemoteModel
 import com.hackfest21.covigenix.R
 import com.hackfest21.covigenix.ml.Model2
 import kotlinx.android.synthetic.main.fragment_image_prediction.view.*
