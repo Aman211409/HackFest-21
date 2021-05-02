@@ -44,7 +44,7 @@ class RegisterPatient : AppCompatActivity() {
             }
         })
 
-        register.setOnClickListener { registerPatient() }
+        btn_login1.setOnClickListener { registerPatient() }
     }
 
     private fun registerPatient(){
