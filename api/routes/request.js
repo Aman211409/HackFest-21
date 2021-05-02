@@ -172,18 +172,13 @@ router.post('/share-address/:request_id/:provider_id', (req, res, next) => {
     const providerId = req.params.provider_id;
     const requestId = req.params.request_id;
     const patientAddress = req.body.address;
-
+    const vals = req.body.providers;
+    
     Request.findOne({
         _id: requestId
     }).exec()
     .then(result => {        
-        const original = result.providers;
-        var vals = originals.filter(item => item.provider_id !== providerId);
-        const ownEntry = original.filter(item => item.provider_id == providerId);
-        ownEntry[0].approved = true;
-        vals.push(ownEntry[0]);
-        vals.reverse();
-
+        
         Request.updateOne(
         {
             _id: requestId
@@ -247,6 +242,7 @@ router.get('/patient/:patient_id', (req, res, next) => {
         var arr = [];
         for(i=0; i<result.length; i++){
             var performa = {
+                id: result[i]._id,
                 area: result[i].area,
                 providers: result[i].providers,
                 essentials_id: result[i].essentials_id,

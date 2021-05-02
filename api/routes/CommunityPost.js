@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const mongoose = require('mongoose');
+const CommunityPost = require('../models/communitypost')
 
 module.exports = router;
 
@@ -27,11 +28,19 @@ router.post('/:communityPostType/nearby', (req, res, next) => {
 
         var posts= [];
         for(i=0; i<result.length; i++){
-            if(result[i].type.filter(item => item == type).length !== 0){
-                posts.push(result[i]);
+            if(result[i].type == type){
+                var performa = {
+                    name: result[i].name,
+                    phone: result[i].phone,
+                    area: result[i].area,
+                    itemName: result[i].itemName,
+                    details: result[i].details,
+                    location: result[i].location.coordinates
+                }
+                posts.push(performa);
             }
         }
-        
+        console.log(posts)
         return res.status(200).json({
             code: 200,
             message: "Fetched Posts SuccessFully.",
@@ -56,12 +65,13 @@ router.post('/:communityPostType', (req, res, next) => {
         _id: mongoose.Types.ObjectId(),
         type: req.params.communityPostType,
         date: date,
-        patient_id: req.body.patient_id,
-        patient_name: req.body.patientName,
-        patient_phone: req.body.patientPhone,
+        name: req.body.name,
+        phone: req.body.phone,
         area: req.body.area,
+        itemName:req.body.itemName,
+        details: req.body.details,
         location: {
-            type: pointSchema,
+            type: "Point",
             coordinates: req.body.coordinates
         },
         completed: false
