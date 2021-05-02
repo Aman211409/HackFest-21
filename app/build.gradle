@@ -32,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        mlModelBinding true
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -64,6 +67,8 @@ dependencies {
 
     // Also declare the dependency for the TensorFlow Lite library and specify its version
     implementation 'org.tensorflow:tensorflow-lite:2.3.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1'
     //implementation 'com.google.firebase:firebase-ml-vision:24.1.0'
     def nav_version = "2.3.5"
 

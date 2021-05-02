@@ -9,8 +9,6 @@ class CommunityFragmentStateAdapter(fragment: Fragment): FragmentStateAdapter(fr
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        if(position%2==0)
-            return CommunityRequestsFragment()
-        return CommunityAvailabilityFragment()
+        return CommunityRequestsFragment(position)
     }
 }

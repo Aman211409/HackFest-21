@@ -1,6 +1,7 @@
 package com.hackfest21.covigenix.ViewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,31 +22,34 @@ class CommunityPostViewModel(val app: Application): AndroidViewModel(app){
     val communityPostRepository: CommunityRepository = (app as MyApplication).communityRepository
     val userRepository: UserRepository = (app as MyApplication).userRepository
 
-    private val responseGetCommunityPost: MutableLiveData<Event<ResponseGetCommunityPost>> = MutableLiveData()
+    private val responseGetCommunityPost0: MutableLiveData<Event<ResponseGetCommunityPost>> = MutableLiveData()
+    private val responseGetCommunityPost1: MutableLiveData<Event<ResponseGetCommunityPost>> = MutableLiveData()
+
     private val responseCreateCommunityPost: MutableLiveData<Event<ResponseCreateCommunityPost>> = MutableLiveData()
     private val responseDeleteCommunitypost: MutableLiveData<Event<ResponseDeleteCommunityPost>> = MutableLiveData()
 
     private val errorString: MutableLiveData<Event<String>> = MutableLiveData()
 
-    fun responseGetCommunityPost(): LiveData<Event<ResponseGetCommunityPost>> = responseGetCommunityPost()
-    fun responseCreateCommunityPost(): LiveData<Event<ResponseCreateCommunityPost>> = responseCreateCommunityPost()
-    fun responseDeleteCommunityPost(): LiveData<Event<ResponseDeleteCommunityPost>> = responseDeleteCommunityPost()
+    fun responseGetCommunityPost0(): LiveData<Event<ResponseGetCommunityPost>> = responseGetCommunityPost0
+    fun responseGetCommunityPost1(): LiveData<Event<ResponseGetCommunityPost>> = responseGetCommunityPost1
+
+    fun responseCreateCommunityPost(): LiveData<Event<ResponseCreateCommunityPost>> = responseCreateCommunityPost
+    fun responseDeleteCommunityPost(): LiveData<Event<ResponseDeleteCommunityPost>> = responseDeleteCommunitypost
 
 
     fun errorString(): LiveData<Event<String>> = errorString
 
     fun getCommunityPost(communityPostType : Int ){
-        val lat = userRepository.getUserLat()
-        val long = userRepository.getUserLong()
-        val coordinates : Array<Double> = arrayOf(0.0,0.0)
-        coordinates[0] = lat
-        coordinates[1] = long
+        val coordinates : Array<Double> = arrayOf(userRepository.getUserLong(), userRepository.getUserLat())
 
-        val bodyCommunityPost = BodyGetCommunityPost(coordinates)
+        val bodyCommunityPost = BodyGetCommunityPost(coordinates[0], coordinates[1])
 
         viewModelScope.launch {
             try{
-                responseGetCommunityPost.postValue(Event(communityPostRepository.communityPostsNearby(communityPostType,bodyCommunityPost)))
+                if(communityPostType==0)
+                    responseGetCommunityPost0.postValue(Event(communityPostRepository.communityPostsNearby(communityPostType,bodyCommunityPost)))
+                else
+                    responseGetCommunityPost1.postValue(Event(communityPostRepository.communityPostsNearby(communityPostType,bodyCommunityPost)))
             }catch(e: Exception){
                 HelperClass.handleError(e, errorString)
             }

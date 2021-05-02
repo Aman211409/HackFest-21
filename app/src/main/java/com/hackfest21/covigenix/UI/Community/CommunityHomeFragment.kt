@@ -29,7 +29,7 @@ class CommunityHomeFragment : Fragment() {
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = if(position%2==0) "Requests" else "Availability"
+            tab.text = if(position==0) "Requirements" else "Availability"
         }.attach()
         super.onViewCreated(view, savedInstanceState)
 

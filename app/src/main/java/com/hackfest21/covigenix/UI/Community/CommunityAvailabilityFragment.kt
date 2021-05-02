@@ -35,7 +35,7 @@ class CommunityAvailabilityFragment : Fragment() {
 
         communityPostViewModel = ViewModelProvider(requireActivity()).get(CommunityPostViewModel::class.java)
 
-        communityPostViewModel.responseGetCommunityPost().observe(viewLifecycleOwner, {
+        communityPostViewModel.responseGetCommunityPost1().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let{
                 list = it.posts as ArrayList<CommunityPostModel>
 

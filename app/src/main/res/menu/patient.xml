@@ -3,16 +3,20 @@
     <item
         android:title="Prediction"
         android:id="@+id/predictionHomeFragment"/>
+    <item android:title="Services"><menu>
     <item
         android:title="Essentials"
         android:id="@+id/patientRequestsFragment"/>
     <item
         android:title="Community"
         android:id="@+id/communityHomeFragment"/>
+    </menu></item>
+    <item android:title="User"><menu>
     <item
         android:title="My Requests"
         android:id="@+id/myRequestsFragment"/>
     <item
         android:title="Profile"
         android:id="@+id/patientProfileFragment"/>
+    </menu></item>
 </menu>
