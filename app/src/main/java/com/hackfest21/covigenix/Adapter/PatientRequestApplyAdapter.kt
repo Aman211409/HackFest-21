@@ -5,6 +5,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.google.android.material.checkbox.MaterialCheckBox
 import com.hackfest21.covigenix.Model.Request.ProviderResponseModel
 import com.hackfest21.covigenix.R
 import kotlinx.android.synthetic.main.cardview_hospitalsnearby.view.*
+import org.tensorflow.lite.TensorFlowLite.init
 
 class PatientRequestApplyAdapter(val list: ArrayList<ProviderResponseModel>, val applyListener: ApplyListener): RecyclerView.Adapter<PatientRequestApplyAdapter.ProviderViewHolder>() {
 
@@ -26,16 +28,22 @@ class PatientRequestApplyAdapter(val list: ArrayList<ProviderResponseModel>, val
         val area: TextView
         val phone: TextView
         val checkBox: MaterialCheckBox
+        val  nav_to_map:Button
 
         init{
             name = itemView.findViewById(R.id.textViewHospitalName)
             area = itemView.findViewById(R.id.textViewArea)
             phone = itemView.findViewById(R.id.textViewPhoneNo)
             checkBox = itemView.findViewById(R.id.checkBox)
+            nav_to_map=itemView.findViewById((R.id.nav_to_map))
 
             checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 listener.onCheck(adapterPosition)
             }
+            nav_to_map.setOnClickListener{
+                listener.onLongPress(adapterPosition)
+            }
+
         }
     }
 
@@ -56,15 +64,15 @@ class PatientRequestApplyAdapter(val list: ArrayList<ProviderResponseModel>, val
         }else if(list[position].checkStatus == 0){
             holder.checkBox.visibility = VISIBLE
             holder.checkBox.isChecked = false
-            holder.checkBox.setOnCheckedChangeListener({ buttonView, isChecked ->
+            holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 applyListener.onCheck(position)
-            })
+            }
         }else{
             holder.checkBox.visibility = VISIBLE
             holder.checkBox.isChecked = true
-            holder.checkBox.setOnCheckedChangeListener({ buttonView, isChecked ->
+            holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 applyListener.onCheck(position)
-            })
+            }
         }
     }
 

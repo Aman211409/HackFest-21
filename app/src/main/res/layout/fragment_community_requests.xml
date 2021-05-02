@@ -75,4 +75,16 @@
         app:layout_constraintTop_toBottomOf="@id/guideline3"
         app:layout_constraintVertical_bias="0.8"
         tools:listitem="@layout/cardview_viewcommnunitypost" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_margin="5dp"
+        android:id="@+id/buttonAddPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:src="@drawable/ic_addbutton"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintBottom_toBottomOf="@id/guideline4"
+        app:backgroundTint="@color/colorPrimary"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

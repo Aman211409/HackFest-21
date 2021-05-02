@@ -1,11 +1,14 @@
 package com.hackfest21.covigenix.UI.PatientServices
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +20,9 @@ import com.hackfest21.covigenix.ViewModel.RequestViewModel
 import kotlinx.android.synthetic.main.fragment_edit_essentials.view.*
 import kotlinx.android.synthetic.main.fragment_patient_request_apply.*
 import kotlinx.android.synthetic.main.fragment_patient_request_apply.view.*
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class PatientRequestApplyFragment : Fragment(), PatientRequestApplyAdapter.ApplyListener {
 
@@ -24,10 +30,13 @@ class PatientRequestApplyFragment : Fragment(), PatientRequestApplyAdapter.Apply
     lateinit var providers: ArrayList<ProviderResponseModel>
     lateinit var adapter: PatientRequestApplyAdapter
 
+
     var isBeingSelected: Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_patient_request_apply, container, false)
     }
@@ -40,14 +49,14 @@ class PatientRequestApplyFragment : Fragment(), PatientRequestApplyAdapter.Apply
         requestViewModel.safeToVisitProviders.postValue(false)
 
         requestViewModel.responseGetProvidersByEssentialsId().observe(viewLifecycleOwner, {
-            it.getContentIfNotHandled()?.let{
+            it.getContentIfNotHandled()?.let {
                 providers = it.providers as ArrayList<ProviderResponseModel>
 
                 //TODO: Sorting Algo
 
                 adapter = PatientRequestApplyAdapter(providers, this)
                 recyclerViewProviders.adapter = adapter
-                recyclerViewProviders.apply{
+                recyclerViewProviders.apply {
                     layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                     setHasFixedSize(true)
                 }
@@ -55,14 +64,19 @@ class PatientRequestApplyFragment : Fragment(), PatientRequestApplyAdapter.Apply
         })
 
         requestViewModel.responseCreateRequest().observe(viewLifecycleOwner, {
-            it?.getContentIfNotHandled()?.let{
-                Toast.makeText(this@PatientRequestApplyFragment.context, it.message, Toast.LENGTH_LONG).show()
+            it?.getContentIfNotHandled()?.let {
+                Toast.makeText(
+                    this@PatientRequestApplyFragment.context,
+                    it.message,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
 
         requestViewModel.errorString().observe(viewLifecycleOwner, {
-            it?.getContentIfNotHandled()?.let{
-                Toast.makeText(this@PatientRequestApplyFragment.context, it, Toast.LENGTH_LONG).show()
+            it?.getContentIfNotHandled()?.let {
+                Toast.makeText(this@PatientRequestApplyFragment.context, it, Toast.LENGTH_LONG)
+                    .show()
             }
         })
 
@@ -75,7 +89,11 @@ class PatientRequestApplyFragment : Fragment(), PatientRequestApplyAdapter.Apply
     }
 
     override fun onLongPress(itemPos: Int) {
-        TODO("Not yet implemented")
+        val long  = providers[itemPos].location[0]
+        val lat   = providers[itemPos].location[1]
+        val uri: String = java.lang.String.format(Locale.ENGLISH, "geo:%f,%f", lat, long)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        requireContext().startActivity(intent)
     }
 
     private fun toggleList(){
@@ -103,7 +121,15 @@ class PatientRequestApplyFragment : Fragment(), PatientRequestApplyAdapter.Apply
 
         for(provider in providers){
             if(provider.checkStatus == 1){
-                requested.add(ProviderStatusModel(provider.name, provider.phone, provider._id, false, false))
+                requested.add(
+                    ProviderStatusModel(
+                        provider.name,
+                        provider.phone,
+                        provider._id,
+                        false,
+                        false
+                    )
+                )
             }
         }
 

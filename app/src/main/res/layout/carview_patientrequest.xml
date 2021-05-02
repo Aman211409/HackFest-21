@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_stroke"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     style="@style/CardBg"
     android:outlineSpotShadowColor="#000000"
     android:outlineAmbientShadowColor="@color/black">
@@ -52,7 +54,7 @@
             android:id="@+id/textViewPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"
+            android:text="Oxygen"
             style="@style/CardHead"
             app:layout_constraintTop_toTopOf="@id/guideline3"
             app:layout_constraintStart_toStartOf="@id/guideline1"/>
@@ -71,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="loading"
+            android:text="12-04-2021"
             app:layout_constraintBottom_toBottomOf="@id/imageViewEssentials"
             app:layout_constraintStart_toEndOf="@id/imageViewEssentials"
             app:layout_constraintTop_toTopOf="@id/imageViewEssentials"
@@ -90,7 +92,7 @@
             android:id="@+id/textViewPatientName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"
+            android:text="12-B GoreGaon East, Mumbai"
             app:layout_constraintBottom_toBottomOf="@id/imageViewPatientName"
             app:layout_constraintStart_toStartOf="@id/textViewEssentials"
             app:layout_constraintTop_toTopOf="@id/imageViewPatientName" />

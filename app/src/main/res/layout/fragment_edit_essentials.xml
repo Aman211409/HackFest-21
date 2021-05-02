@@ -15,5 +15,6 @@
         android:text="Submit"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
+        android:background="@drawable/circularbluebordersolid"
         android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_stroke"
     style="@style/CardBg"
+    app:cardBackgroundColor=""
     android:outlineSpotShadowColor="#000000"
     android:outlineAmbientShadowColor="@color/black">
 
