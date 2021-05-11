@@ -21,21 +21,14 @@ router.post('/:communityPostType/nearby', (req, res, next) => {
             $geoWithin : {
                 $centerSphere : [[longitude, latitude], kmToRadian(200) ]
             }
-        }
+        },
+        type: type
     }).exec()
     .then(result => {
-
-        var posts= [];
-        for(i=0; i<result.length; i++){
-            if(result[i].type.filter(item => item == type).length !== 0){
-                posts.push(result[i]);
-            }
-        }
-        
         return res.status(200).json({
             code: 200,
             message: "Fetched Posts SuccessFully.",
-            posts:posts
+            posts:result
         });
     }).catch(err => {
         console.log(err);
@@ -54,24 +47,24 @@ router.post('/:communityPostType', (req, res, next) => {
 
     const communitypost = new CommunityPost({
         _id: mongoose.Types.ObjectId(),
-        type: req.params.communityPostType,
-        date: date,
-        patient_id: req.body.patient_id,
-        patient_name: req.body.patientName,
-        patient_phone: req.body.patientPhone,
+        person_id: req.body.person_id,
+        name: req.body.name,
+        phone: req.body.phone,
         area: req.body.area,
+        details: req.body.details,
         location: {
-            type: pointSchema,
+            type: "Point",
             coordinates: req.body.coordinates
         },
-        completed: false
+        type: req.params.communityPostType,
+        date: date,
     });
     
     communitypost.save()
     .then(result => {
         return res.status(200).json({
             code: 200,
-            message: "Community Post SuccessFully Added"
+            message: "Community Post Successfully Added"
         })
     }).catch(err => {
         console.log(err);
@@ -89,7 +82,7 @@ router.post('/:communityPostType', (req, res, next) => {
 router.delete('/:communityPostId', (req, res, next) => {
     
     const requestId = req.params.request_id;
-    Request.deleteOne(
+    CommunityPost.deleteOne(
         {
             _id: requestId
         },   
@@ -97,7 +90,7 @@ router.delete('/:communityPostId', (req, res, next) => {
     .then(result => {
         return res.status(200).json({
             code: 200,
-            message: "Deleted Succesfully"
+            message: "Deleted post succesfully."
         })
     }).catch(err => {
         console.log(err);
@@ -107,5 +100,3 @@ router.delete('/:communityPostId', (req, res, next) => {
         });
     });
 });
-
-

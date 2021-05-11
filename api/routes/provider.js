@@ -6,10 +6,10 @@ const Provider = require('../models/provider');
 const pointSchema = require('../models/point');
 
 //Provider check-sign-up
-router.get('/:provider_id/exists', (req, res, next) => {
-    const providerId = req.params.provider_id;
+router.get('/:phone/exists', (req, res, next) => {
+    const phone = req.params.phone;
 
-    Provider.findOne({_id: providerId}).exec()
+    Provider.findOne({phone: phone}).exec()
     .then(result =>{
 
         if(result.length>0){
@@ -40,7 +40,7 @@ router.post('/sign-up', (req, res, next) => {
         phone: req.body.phone,
         area: req.body.area,
         location: {
-            type: pointSchema,
+            type: "Point",
             coordinates: req.body.coordinates
         },
         essentials: req.body.essentials

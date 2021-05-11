@@ -6,6 +6,7 @@ const patientSchema = mongoose.Schema({
     name: String,
     phone: String,
     area: String,
+    address: String,
     location: pointSchema,
 });
 

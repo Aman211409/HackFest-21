@@ -7,7 +7,7 @@ const providerSchema = mongoose.Schema({
     phone: String,
     area: String,
     location: pointSchema,
-    essentials:[Number]
+    essentials:[String]
 });
 
 module.exports = mongoose.model('Provider', providerSchema);
