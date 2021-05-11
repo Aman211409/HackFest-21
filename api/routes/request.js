@@ -10,22 +10,23 @@ var kmToRadian = function(km){
     return km / earthRadiusInKm;
 };
 
-//Get providers by essentials_id
-router.post('/:essentials_id/nearby', (req, res, next) => {
+//Get providers by essential
+router.post('/:essential/nearby', (req, res, next) => {
     const latitude = req.body.latitude;
     const longitude = req.body.longitude;
-    const essentialsId = req.params.essentials_id;
+    const essential = req.params.essential;
 
     Provider.find({
         location:{
             $geoWithin : {
                 $centerSphere : [[longitude, latitude], kmToRadian(50) ]
             }
-        }
+        },
+        essentials: essential
     }).exec()
-    .then(result => {
+    .then(providers => {
 
-        var providers = [];
+        /*var providers = [];
         for(i=0; i<result.length; i++){
             if(result[i].essentials.filter(item => item == essentialsId).length !== 0){
                 var performa = {
@@ -37,7 +38,7 @@ router.post('/:essentials_id/nearby', (req, res, next) => {
                 }
                 providers.push(performa);
             }
-        }
+        }*/
         
         return res.status(200).json({
             code: 200,
@@ -54,24 +55,31 @@ router.post('/:essentials_id/nearby', (req, res, next) => {
 });
 
 //Create new request
-router.post('/:essentials_id', (req, res, next) => {
+router.post('/:essential', (req, res, next) => {
     
     const date = new Date();
 
     const request = new Request({
         _id: mongoose.Types.ObjectId(),
-        essentials_id: req.params.essentials_id,
-        date: date,
-        patient_id: req.body.patient_id,
+
+        patient_id: req.body.patientId,
         patient_name: req.body.patientName,
         patient_phone: req.body.patientPhone,
+        patient_address: req.body.patientAddress,
         area: req.body.area,
+        
+        essential: req.params.essential,    
         location: {
             type: "Point",
             coordinates: req.body.coordinates
         },
-        providers: req.body.providers,
-        completed: false
+        date: date,
+
+        provider_name: req.body.providerName,
+        provider_phone: req.body.providerPhone,
+        provider_id: req.body.providerId,
+        sought_approval: false,
+        approved: false
     });
     
     request.save()
@@ -89,18 +97,19 @@ router.post('/:essentials_id', (req, res, next) => {
     });
 });
 
-router.get('/provider/:provider_id', (req, res, next) => {
+router.get('/provider/:provider_id/:essential', (req, res, next) => {
     const providerId = req.params.provider_id;
+    const essential = req.params.essential;
+
     Request.find({
-        completed: false,
-        "providers.provider_id": providerId
+        provider_id: providerId,
+        essential: essential
     })
     .then(result => {
         
         var arr = [];
         for(i=0; i<result.length; i++){
-            const providersArray = result[i].providers.filter(item => item.provider_id == providerId);
-            const isAllowed = providersArray[0].approved;
+            const isAllowed = result[i].approved;
 
             var performa = {
                 location: result[i].location.coordinates,
@@ -109,7 +118,6 @@ router.get('/provider/:provider_id', (req, res, next) => {
                 name: result[i].patient_name,
                 phone: result[i].patient_phone,
                 address: (isAllowed?result[i].patient_address:"Not available"),
-                essentials_id: result[i].essentials_id,
                 date: result[i].date
             };
             arr.push(performa);
@@ -129,20 +137,13 @@ router.get('/provider/:provider_id', (req, res, next) => {
     });
 });
 
-router.get('/approval/:request_id/:provider_id', (req, res, next) => {
-    const providerId = req.params.provider_id;
+router.get('/approval/:request_id', (req, res, next) => {
     const requestId = req.params.request_id;
 
     Request.findOne({
         _id: requestId
     }).exec()
     .then(result => {        
-        const original = result.providers;
-        var vals = original.filter(item => item.provider_id !== providerId);
-        const ownEntry = original.filter(item => item.provider_id == providerId);
-        ownEntry[0].sought_approval = true;
-        vals.push(ownEntry[0]);
-        vals.reverse();
 
         Request.updateOne(
         {
@@ -150,7 +151,7 @@ router.get('/approval/:request_id/:provider_id', (req, res, next) => {
         },
         {
             $set:{
-                providers: vals
+                sought_approval: true
             }
         }).exec()
         .then(result => {
@@ -168,11 +169,8 @@ router.get('/approval/:request_id/:provider_id', (req, res, next) => {
     });
 });
 
-router.post('/share-address/:request_id/:provider_id', (req, res, next) => {
-    const providerId = req.params.provider_id;
+router.post('/share-address/:request_id', (req, res, next) => {
     const requestId = req.params.request_id;
-    const patientAddress = req.body.address;
-    const vals = req.body.providers;
     
     Request.findOne({
         _id: requestId
@@ -185,8 +183,7 @@ router.post('/share-address/:request_id/:provider_id', (req, res, next) => {
         },
         {
             $set:{
-                providers: vals,
-                patient_address: patientAddress
+                approved: true
             }
         }).exec()
         .then(result => {
@@ -204,23 +201,18 @@ router.post('/share-address/:request_id/:provider_id', (req, res, next) => {
     });
 });
 
-router.patch('/:request_id', (req, res, next) => {
+router.delete('/:request_id', (req, res, next) => {
     
     const requestId = req.params.request_id;
-    Request.updateOne(
+    Request.deleteOne(
         {
             _id: requestId
         },
-        {
-            $set:{
-                completed: true
-            }
-        }
     ).exec()
     .then(result => {
         return res.status(200).json({
             code: 200,
-            message: "Marked as completed successfully"
+            message: "Deleted successfully"
         })
     }).catch(err => {
         console.log(err);
@@ -234,7 +226,6 @@ router.patch('/:request_id', (req, res, next) => {
 router.get('/patient/:patient_id', (req, res, next) => {
     const patientId = req.params.patient_id;
     Request.find({
-        //completed: false,
         patient_id: patientId
     })
     .then(result => {
@@ -243,11 +234,14 @@ router.get('/patient/:patient_id', (req, res, next) => {
         for(i=0; i<result.length; i++){
             var performa = {
                 id: result[i]._id,
-                area: result[i].area,
-                providers: result[i].providers,
-                essentials_id: result[i].essentials_id,
+                //area: result[i].area,
+                essential: result[i].essential,
                 date: result[i].date,
-                completed: result[i].completed
+                provider_name: result[i].provider_name,
+                provider_phone: result[i].provider_phone,
+                provider_id: result[i].provider_id,
+                sought_approval: result[i].sought_approval,
+                approved: result[i].approved
             };
             arr.push(performa);
         }

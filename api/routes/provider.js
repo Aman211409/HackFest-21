@@ -1,9 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const mongoose = require('mongoose');
-
 const Provider = require('../models/provider');
-const pointSchema = require('../models/point');
 
 //Provider check-sign-up
 router.get('/:phone/exists', (req, res, next) => {
@@ -81,13 +79,11 @@ router.get('/:provider_id', (req, res, next) => {
         return res.status(200).json({
             code:200,
             message: "Fetched provider profile successfully",
-            provider: {
-                name: result.name,
-                phone: result.phone,
-                location: result.location.coordinates,
-                area: result.area,
-                essentials: result.essentials
-            }
+            name: result.name,
+            phone: result.phone,
+            location: result.location.coordinates,
+            area: result.area,
+            essentials: result.essentials
         });
     }).catch(err => {
         console.log(err);

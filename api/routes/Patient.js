@@ -1,14 +1,12 @@
 const express = require('express');
 const router  = express.Router();
 const mongoose = require('mongoose');
-const pointSchema = require('../models/point');
-const Patient = require('../models/patientSchema');
+const Patient = require('../models/patient');
 
 
 module.exports = router;
 
 /* signUp(Registering User) */
-
 router.post('/sign-up', (req, res, next) => {
 
     const patient = new Patient({
@@ -16,6 +14,7 @@ router.post('/sign-up', (req, res, next) => {
         name: req.body.name,
         phone: req.body.phone,
         area: req.body.area,
+        address: req.body.address,
         location: {
             type: "Point",
             coordinates: req.body.coordinates
@@ -40,7 +39,6 @@ router.post('/sign-up', (req, res, next) => {
 
 
 /* CheckSignUp(At time of Login) */
-
 router.get('/:patient_phone/exists', (req, res, next) => {
     const patientPhone = req.params.patient_phone;
 
@@ -54,6 +52,7 @@ router.get('/:patient_phone/exists', (req, res, next) => {
                 id: result._id,
                 name: result.name,
                 area: result.area,
+                address: result.address,
                 location: result.location.coordinates
             });
         }else{
@@ -63,6 +62,7 @@ router.get('/:patient_phone/exists', (req, res, next) => {
                 id: null,
                 name: null,
                 area: null,
+                address: null,
                 location: null
             });
         }
@@ -88,18 +88,15 @@ router.get('/:patientId', (req, res, next) => {
             res.status(200).json({
                 code: 200,
                 message: "Patient Successfully Fetched.",
-                patient:{
-                     name:result.name,
-                     phone:result.phone,
-                     location: result.location.coordinates,
-                     area:result.area
-                }
+                name:result.name,
+                phone:result.phone,
+                location: result.location.coordinates,
+                area:result.area
             });
         }).catch(err => {
         console.log(err);
         return res.status(500).json({
             code: 500,
-            message: strings.ERROR_OCCURED,
             error: err
         });
     });
@@ -119,6 +116,7 @@ router.patch('/:patientId', (req, res, next) => {
         {$set : 
             {
                 area: req.body.area,
+                address: req.body.address,
                 location: {
                     type: "Point",
                     coordinates: req.body.coordinates
@@ -137,10 +135,7 @@ router.patch('/:patientId', (req, res, next) => {
         console.log(err);
         return res.status(500).json({
             code: 500,
-            message: strings.ERROR_OCCURED,
             error: err
         });
     });
 });
-
-

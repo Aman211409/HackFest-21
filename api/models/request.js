@@ -16,7 +16,6 @@ const requestSchema = mongoose.Schema({
     provider_id: mongoose.Types.ObjectId,
     sought_approval: Boolean,
     approved: Boolean,
-    completed: Boolean
 });
 
 module.exports = mongoose.model('Request', requestSchema);

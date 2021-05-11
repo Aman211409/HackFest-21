@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 
 const providerRoutes = require('./api/routes/provider');
 const requestRoutes = require('./api/routes/request');
-const patientRoutes = require('./api/routes/Patient');
-const communityRoutes = require('./api/routes/CommunityPost');
+const patientRoutes = require('./api/routes/patient');
+const communityRoutes = require('./api/routes/communitypost');
 
 mongoose.connect('mongodb+srv://dbUser:' + process.env.MONGO_ATLAS_PW + '@covigenix.rro52.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
