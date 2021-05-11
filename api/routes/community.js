@@ -13,23 +13,37 @@ var kmToRadian = function(km){
 
 //Get community Post Nearby specifically
 router.post('/:communityPostType/nearby', (req, res, next) => {
-    const latitude = req.body.latitude;
-    const longitude = req.body.longitude;
+    const coordinates = req.body.coordinates;
     const type = req.params.communityPostType
   
     CommunityPost.find({
         location:{
             $geoWithin : {
-                $centerSphere : [[longitude, latitude], kmToRadian(200) ]
+                $centerSphere : [coordinates, kmToRadian(200) ]
             }
         },
         type: type
-    }).exec()
+    },
+    "_id name phone area item details date location.coordinates").exec()
     .then(result => {
+        var posts = [];
+        result.forEach(doc => {
+            var performa = {
+                post_id: doc._id,
+                name: doc.name,
+                phone: doc.phone,
+                area: doc.area,
+                item: doc.item,
+                details: doc.details,
+                date: doc.date,
+                coordinates: doc.location.coordinates
+            };
+            posts.push(performa);
+        });
         return res.status(200).json({
             code: 200,
             message: "Fetched Posts SuccessFully.",
-            posts:result
+            posts:posts
         });
     }).catch(err => {
         console.log(err);
@@ -48,7 +62,7 @@ router.post('/:communityPostType', (req, res, next) => {
 
     const communitypost = new CommunityPost({
         _id: mongoose.Types.ObjectId(),
-        person_id: req.body.person_id,
+        person_id: req.body.personId,
         name: req.body.name,
         phone: req.body.phone,
         area: req.body.area,
@@ -79,14 +93,12 @@ router.post('/:communityPostType', (req, res, next) => {
 
 
 /* Delete Community Post */
-
-
-router.delete('/:communityPostId', (req, res, next) => {
+router.delete('/:post_id', (req, res, next) => {
     
-    const requestId = req.params.request_id;
+    const postId = req.params.post_id;
     CommunityPost.deleteOne(
         {
-            _id: requestId
+            _id: postId
         },   
     ).exec()
     .then(result => {

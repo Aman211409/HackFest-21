@@ -8,7 +8,7 @@ const requestSchema = mongoose.Schema({
     patient_phone: String,
     patient_address: String,
     area: String,
-    essentials_id: Number,
+    essential: String,
     location: pointSchema,
     date: Date,
     provider_name: String,

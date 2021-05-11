@@ -12,34 +12,30 @@ var kmToRadian = function(km){
 
 //Get providers by essential
 router.post('/:essential/nearby', (req, res, next) => {
-    const latitude = req.body.latitude;
-    const longitude = req.body.longitude;
+    const coordinates = req.body.coordinates;
     const essential = req.params.essential;
 
     Provider.find({
         location:{
             $geoWithin : {
-                $centerSphere : [[longitude, latitude], kmToRadian(50) ]
+                $centerSphere : [coordinates, kmToRadian(50) ]
             }
         },
         essentials: essential
-    }).exec()
-    .then(providers => {
-
-        /*var providers = [];
-        for(i=0; i<result.length; i++){
-            if(result[i].essentials.filter(item => item == essentialsId).length !== 0){
-                var performa = {
-                    _id: result[i]._id,
-                    name: result[i].name,
-                    phone: result[i].phone,
-                    area: result[i].area,
-                    location: result[i].location.coordinates
-                }
-                providers.push(performa);
-            }
-        }*/
-        
+    },
+    "_id name phone area location.coordinates").exec()
+    .then(result => {
+        var providers = [];
+        result.forEach((doc) => {
+            var performa = {
+                provider_id: doc._id,
+                name: doc.name,
+                phone: doc.phone,
+                area: doc.area,
+                coordinates: doc.location.coordinates
+            };
+            providers.push(performa);
+        });
         return res.status(200).json({
             code: 200,
             message: "Fetched providers successfully.",
@@ -140,26 +136,19 @@ router.get('/provider/:provider_id/:essential', (req, res, next) => {
 router.get('/approval/:request_id', (req, res, next) => {
     const requestId = req.params.request_id;
 
-    Request.findOne({
+    Request.updateOne({
         _id: requestId
+    },
+    {
+        $set:{
+            sought_approval: true
+        }
     }).exec()
-    .then(result => {        
-
-        Request.updateOne(
-        {
-            _id: requestId
-        },
-        {
-            $set:{
-                sought_approval: true
-            }
-        }).exec()
-        .then(result => {
-            return res.status(200).json({
-                code: 200,
-                message: "Sought approval successfully",
-            });
-        })
+    .then(result => {
+        return res.status(200).json({
+            code: 200,
+            message: "Sought approval successfully",
+        });
     }).catch(err => {
         console.log(err);
         return res.status(500).json({
@@ -212,7 +201,7 @@ router.delete('/:request_id', (req, res, next) => {
     .then(result => {
         return res.status(200).json({
             code: 200,
-            message: "Deleted successfully"
+            message: "Deleted request successfully"
         })
     }).catch(err => {
         console.log(err);

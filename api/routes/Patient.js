@@ -78,7 +78,7 @@ router.get('/:patient_phone/exists', (req, res, next) => {
 
 /* GetProfile */
 router.get('/:patientId', (req, res, next) => {
-    const patientId = req.params.patient_Id;
+    const patientId = req.params.patientId;
 
     Patient.findOne({
             _id : patientId
@@ -90,8 +90,8 @@ router.get('/:patientId', (req, res, next) => {
                 message: "Patient Successfully Fetched.",
                 name:result.name,
                 phone:result.phone,
+                area:result.area,
                 location: result.location.coordinates,
-                area:result.area
             });
         }).catch(err => {
         console.log(err);
@@ -107,7 +107,7 @@ router.get('/:patientId', (req, res, next) => {
 /* UpdateProfile */
 
 router.patch('/:patientId', (req, res, next) => {
-    const patientId = req.params.patient_Id;
+    const patientId = req.params.patientId;
 
     Patient.updateOne(
         {
