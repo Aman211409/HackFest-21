@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const Provider = require('../models/provider');
 const Request = require('../models/request');
-const pointSchema = require('../models/point');
 
 var kmToRadian = function(km){
     var earthRadiusInKm = 6378;
@@ -29,7 +28,14 @@ router.post('/:essentials_id/nearby', (req, res, next) => {
         var providers = [];
         for(i=0; i<result.length; i++){
             if(result[i].essentials.filter(item => item == essentialsId).length !== 0){
-                providers.push(result[i]);
+                var performa = {
+                    _id: result[i]._id,
+                    name: result[i].name,
+                    phone: result[i].phone,
+                    area: result[i].area,
+                    location: result[i].location.coordinates
+                }
+                providers.push(performa);
             }
         }
         
@@ -61,7 +67,7 @@ router.post('/:essentials_id', (req, res, next) => {
         patient_phone: req.body.patientPhone,
         area: req.body.area,
         location: {
-            type: pointSchema,
+            type: "Point",
             coordinates: req.body.coordinates
         },
         providers: req.body.providers,
@@ -87,9 +93,7 @@ router.get('/provider/:provider_id', (req, res, next) => {
     const providerId = req.params.provider_id;
     Request.find({
         completed: false,
-        providers:{
-            provider_id:providerId
-        }
+        "providers.provider_id": providerId
     })
     .then(result => {
         
@@ -100,6 +104,7 @@ router.get('/provider/:provider_id', (req, res, next) => {
 
             var performa = {
                 location: result[i].location.coordinates,
+                request_id: result[i]._id,
                 area: result[i].area,
                 name: result[i].patient_name,
                 phone: result[i].patient_phone,
@@ -133,7 +138,7 @@ router.get('/approval/:request_id/:provider_id', (req, res, next) => {
     }).exec()
     .then(result => {        
         const original = result.providers;
-        var vals = originals.filter(item => item.provider_id !== providerId);
+        var vals = original.filter(item => item.provider_id !== providerId);
         const ownEntry = original.filter(item => item.provider_id == providerId);
         ownEntry[0].sought_approval = true;
         vals.push(ownEntry[0]);
@@ -167,18 +172,13 @@ router.post('/share-address/:request_id/:provider_id', (req, res, next) => {
     const providerId = req.params.provider_id;
     const requestId = req.params.request_id;
     const patientAddress = req.body.address;
-
+    const vals = req.body.providers;
+    
     Request.findOne({
         _id: requestId
     }).exec()
     .then(result => {        
-        const original = result.providers;
-        var vals = originals.filter(item => item.provider_id !== providerId);
-        const ownEntry = original.filter(item => item.provider_id == providerId);
-        ownEntry[0].approved = true;
-        vals.push(ownEntry[0]);
-        vals.reverse();
-
+        
         Request.updateOne(
         {
             _id: requestId
@@ -242,6 +242,7 @@ router.get('/patient/:patient_id', (req, res, next) => {
         var arr = [];
         for(i=0; i<result.length; i++){
             var performa = {
+                id: result[i]._id,
                 area: result[i].area,
                 providers: result[i].providers,
                 essentials_id: result[i].essentials_id,

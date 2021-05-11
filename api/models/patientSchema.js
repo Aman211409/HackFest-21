@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const pointSchema = require('./point');
 
 const patientSchema = mongoose.Schema({
     _id: mongoose.Types.ObjectId,

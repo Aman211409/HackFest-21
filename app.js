@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 const providerRoutes = require('./api/routes/provider');
 const requestRoutes = require('./api/routes/request');
+const patientRoutes = require('./api/routes/Patient');
+const communityRoutes = require('./api/routes/CommunityPost');
 
 mongoose.connect('mongodb+srv://dbUser:' + process.env.MONGO_ATLAS_PW + '@covigenix.rro52.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
@@ -28,6 +30,8 @@ app.use((req, res, next) => {
 
 app.use('/provider', providerRoutes);
 app.use('/request', requestRoutes);
+app.use('/patient', patientRoutes);
+app.use('/communityPost', communityRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

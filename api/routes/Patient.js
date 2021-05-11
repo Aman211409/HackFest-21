@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const mongoose = require('mongoose');
 const pointSchema = require('../models/point');
-const Patient = require('../models/patient');
+const Patient = require('../models/patientSchema');
 
 
 module.exports = router;
@@ -10,12 +10,14 @@ module.exports = router;
 /* signUp(Registering User) */
 
 router.post('/sign-up', (req, res, next) => {
-    const patient = new patient({
+
+    const patient = new Patient({
+        _id: mongoose.Types.ObjectId(),
         name: req.body.name,
         phone: req.body.phone,
         area: req.body.area,
         location: {
-            type: pointSchema,
+            type: "Point",
             coordinates: req.body.coordinates
         },
     });
@@ -24,7 +26,8 @@ router.post('/sign-up', (req, res, next) => {
     .then(result => {
         return res.status(200).json({
             code: 200,
-            message: "Signed up successfully"
+            message: "Signed up successfully",
+            id: result._id
         })
     }).catch(err => {
         console.log(err);
@@ -38,21 +41,29 @@ router.post('/sign-up', (req, res, next) => {
 
 /* CheckSignUp(At time of Login) */
 
-router.get('/:patient_id/exists', (req, res, next) => {
-    const patientId = req.params.patient_id;
+router.get('/:patient_phone/exists', (req, res, next) => {
+    const patientPhone = req.params.patient_phone;
 
-    Patient.findOne({_id: patientId}).exec()
+    Patient.findOne({phone: patientPhone}).exec()
     .then(result =>{
 
-        if(result.length>0){
+        if(result){
             return res.status(200).json({
                 code: 200,
-                message: "Patient exists."
+                message: "Patient exists.",
+                id: result._id,
+                name: result.name,
+                area: result.area,
+                location: result.location.coordinates
             });
         }else{
             return res.status(200).json({
                 code: 201,
-                message: "Patient Does not Exists."
+                message: "Patient Does not Exists.",
+                id: null,
+                name: null,
+                area: null,
+                location: null
             });
         }
         
@@ -98,7 +109,7 @@ router.get('/:patientId', (req, res, next) => {
 
 /* UpdateProfile */
 
-router.patch('/:patientId', checkAuth, (req, res, next) => {
+router.patch('/:patientId', (req, res, next) => {
     const patientId = req.params.patient_Id;
 
     Patient.updateOne(
@@ -109,7 +120,7 @@ router.patch('/:patientId', checkAuth, (req, res, next) => {
             {
                 area: req.body.area,
                 location: {
-                    type: pointSchema,
+                    type: "Point",
                     coordinates: req.body.coordinates
                 }
             }

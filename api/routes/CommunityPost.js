@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const mongoose = require('mongoose');
+const CommunityPost = require('../models/communitypost')
 
 module.exports = router;
 
@@ -52,6 +53,7 @@ router.post('/:communityPostType', (req, res, next) => {
         phone: req.body.phone,
         area: req.body.area,
         details: req.body.details,
+        item: req.body.item,
         location: {
             type: "Point",
             coordinates: req.body.coordinates
